@@ -166,6 +166,7 @@
     'requested'				=> 'Requested',
     'request_canceled'      => 'Request Canceled',
     'save'  				=> 'Save',
+    'scanbarcode'           => 'Scan Barcode',
     'select'				=> 'Select',
     'search'				=> 'Search',
     'select_category'       => 'Select a Category',

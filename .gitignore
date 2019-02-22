@@ -51,3 +51,7 @@ tests/_support/_generated/*
 
 *.cache
 /public/storage
+
+.vagrant
+.rnd
+*.log

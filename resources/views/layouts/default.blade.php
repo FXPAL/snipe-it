@@ -172,7 +172,7 @@
                   </li>
                   @endcan
                   <li>
-                      <a href="#" id="barcodescanner">
+                      <a class="barcodescanner">
                           <i class="fa fa-camera-retro"></i>
                       </a>
                   </li>
@@ -482,6 +482,11 @@
                             </a>
                         </li>
                     @endcan
+                    <li>
+                        <a class="barcodescanner">
+                                {{ trans('general.scanbarcode') }}
+                            </a>
+                        </li>
                 </ul>
               </li>
               @endcan
