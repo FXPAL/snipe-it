@@ -171,6 +171,11 @@
                       </a>
                   </li>
                   @endcan
+                  <li>
+                      <a href="#" id="barcodescanner">
+                          <i class="fa fa-camera-retro"></i>
+                      </a>
+                  </li>
 
                   @can('index', \App\Models\Asset::class)
                   <form class="navbar-form navbar-left form-horizontal" role="search" action="{{ route('findbytag/hardware') }}" method="get">
@@ -850,7 +855,7 @@
     </script>
     @endif
 
-
+    <script src="{{ url(asset('js/barcodescanner.js')) }}" nonce="{{ csrf_token() }}"></script>
 
   </body>
 </html>
