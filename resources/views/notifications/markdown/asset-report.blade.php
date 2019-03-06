@@ -7,13 +7,17 @@
 <br/>
 <h1>Fixed Assets</h1>
 @component('mail::table')
-| Asset | Asset Tag | Serial | Price | Disposed Date |
-| ----- | --------: | -----: | ----: | ------------: |
+| Asset  | Asset Tag | Serial  | Price | Disposed Date |
+| :----- | --------: | :-----: | ----: | ------------: |
 @foreach ($fixed_assets as $asset)
 @php
 $disposed_date = \App\Helpers\Helper::getFormattedDateObject($asset->updated_at, 'date');
+$price = $asset->purchase_cost;
+if ($price) {
+    $price = '$' + $price;
+}
 @endphp
-| [{{ $asset->present()->name }}]({{ route('hardware.show', ['assetId' => $asset->id]) }}) | {{ $asset->asset_tag }} | {{ $asset->serial }} | {{ $asset->purchase_cost }} |  {{ $disposed_date['formatted'] }}
+| [{{ $asset->present()->name }}]({{ route('hardware.show', ['assetId' => $asset->id]) }}) | {{ $asset->asset_tag }} | {{ $asset->serial }} | {{ $price }} |  {{ $disposed_date['formatted'] }}
 @endforeach
 @if (sizeof($fixed_assets) == 0)
 | **No asset disposed**
@@ -25,13 +29,17 @@ $disposed_date = \App\Helpers\Helper::getFormattedDateObject($asset->updated_at,
 
 <h1>Non-Fixed Assets</h1>
 @component('mail::table')
-| Asset | Asset Tag | Serial | Price | Disposed Date |
-| ----- | --------: | -----: | ----: | ------------: |
+| Asset  | Asset Tag | Serial  | Price | Disposed Date |
+| :----- | --------: | :-----: | ----: | ------------: |
 @foreach ($nonfixed_assets as $asset)
 @php
 $disposed_date = \App\Helpers\Helper::getFormattedDateObject($asset->updated_at, 'date');
+$price = $asset->purchase_cost;
+if ($price) {
+    $price = '$' + $price;
+}
 @endphp
-| [{{ $asset->present()->name }}]({{ route('hardware.show', ['assetId' => $asset->id]) }}) | {{ $asset->asset_tag }} | {{ $asset->serial }} | {{ $asset->purchase_cost }} |  {{ $disposed_date['formatted'] }}
+| [{{ $asset->present()->name }}]({{ route('hardware.show', ['assetId' => $asset->id]) }}) | {{ $asset->asset_tag }} | {{ $asset->serial }} | {{ $price }} |  {{ $disposed_date['formatted'] }}
 @endforeach
 @if (sizeof($nonfixed_assets) == 0)
 | **No asset disposed**
