@@ -14,7 +14,7 @@
 $disposed_date = \App\Helpers\Helper::getFormattedDateObject($asset->updated_at, 'date');
 $price = $asset->purchase_cost;
 if ($price) {
-    $price = '$' + $price;
+    $price = '$' . $price;
 }
 @endphp
 | [{{ $asset->present()->name }}]({{ route('hardware.show', ['assetId' => $asset->id]) }}) | {{ $asset->asset_tag }} | {{ $asset->serial }} | {{ $price }} |  {{ $disposed_date['formatted'] }}
@@ -36,7 +36,7 @@ if ($price) {
 $disposed_date = \App\Helpers\Helper::getFormattedDateObject($asset->updated_at, 'date');
 $price = $asset->purchase_cost;
 if ($price) {
-    $price = '$' + $price;
+    $price = '$' . $price;
 }
 @endphp
 | [{{ $asset->present()->name }}]({{ route('hardware.show', ['assetId' => $asset->id]) }}) | {{ $asset->asset_tag }} | {{ $asset->serial }} | {{ $price }} |  {{ $disposed_date['formatted'] }}
