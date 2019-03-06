@@ -81,8 +81,20 @@ class SendReport extends Command
             // $this->info($json_string);
         }
 
+        $fixed_assets = array();
+        $nonfixed_assets = array();
+        foreach ($assets as $asset) {
+            if (strtolower(substr($asset->asset_tag, 0, 2)) == 'hw') {
+                $nonfixed_assets[] = $asset;
+            } else {
+                $fixed_assets[] = $asset;
+            }
+        }
+
         $params = [
             'assets' => $assets,
+            'fixed_assets' => $fixed_assets,
+            'nonfixed_assets' => $nonfixed_assets,
             'start_date' => $start_date,
             'end_date' => $end_date,
         ];

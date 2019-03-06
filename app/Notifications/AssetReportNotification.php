@@ -20,6 +20,8 @@ class AssetReportNotification extends Notification
     public function __construct($params)
     {
         $this->assets = $params['assets'];
+        $this->fixed_assets = $params['fixed_assets'];
+        $this->nonfixed_assets = $params['nonfixed_assets'];
         $this->start_date = $params['start_date'];
         $this->end_date = $params['end_date'];
     }
@@ -45,9 +47,11 @@ class AssetReportNotification extends Notification
     {
         $message = (new MailMessage)->markdown('notifications.markdown.asset-report',
             [
-                'assets'        => $this->assets,
-                'start_date'    => $this->start_date,
-                'end_date'      => $this->end_date,
+                'assets'          => $this->assets,
+                'fixed_assets'    => $this->fixed_assets,
+                'nonfixed_assets' => $this->nonfixed_assets,
+                'start_date'      => $this->start_date,
+                'end_date'        => $this->end_date,
             ])
             ->subject(sprintf("%s %s - %s", "Disposed Asset Report: ", $this->start_date, $this->end_date));
 
