@@ -89,8 +89,8 @@ class AssetReportNotification extends Notification
             }
 
             $csv .= "\"" . $asset->present()->name . "\",";
-            $csv .= $asset->asset_tag . ",";
-            $csv .= $asset->serial . ",";
+            $csv .= "\"" . $asset->asset_tag . "\",";
+            $csv .= "\"" . $asset->serial . "\",";
             $csv .= $price . ",";
             $csv .= $disposed_date['formatted'] . ",";
             $csv .= route('hardware.show', ['assetId' => $asset->id]) . "\r\n";
