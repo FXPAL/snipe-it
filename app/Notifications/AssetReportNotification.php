@@ -88,7 +88,7 @@ class AssetReportNotification extends Notification
                 $price = '$' . $price;
             }
 
-            $csv .= $asset->present()->name . ",";
+            $csv .= "\"" . $asset->present()->name . "\",";
             $csv .= $asset->asset_tag . ",";
             $csv .= $asset->serial . ",";
             $csv .= $price . ",";
