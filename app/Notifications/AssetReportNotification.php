@@ -45,6 +45,9 @@ class AssetReportNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        //$csv = "1,2,3";
+        $fixed_assets = $this->createCSV($this->fixed_assets);
+        $nonfixed_assets = $this->createCSV($this->nonfixed_assets);
         $message = (new MailMessage)->markdown('notifications.markdown.asset-report',
             [
                 'assets'          => $this->assets,
@@ -53,7 +56,9 @@ class AssetReportNotification extends Notification
                 'start_date'      => $this->start_date,
                 'end_date'        => $this->end_date,
             ])
-            ->subject(sprintf("%s %s - %s", "Disposed Asset Report: ", $this->start_date, $this->end_date));
+            ->subject(sprintf("%s %s - %s", "Disposed Asset Report: ", $this->start_date, $this->end_date))
+            ->attachData($nonfixed_assets, "nonfixed_assets.csv")
+            ->attachData($fixed_assets, "fixed_assets.csv");
 
 
         return $message;
@@ -71,4 +76,26 @@ class AssetReportNotification extends Notification
             //
         ];
     }
+
+    private function createCSV($assets)
+    {
+        $csv = "Asset,Asset Tag,Serial,Price,Disposed Date,Url\r\n";
+        foreach ($assets as $asset)
+        {
+            $disposed_date = \App\Helpers\Helper::getFormattedDateObject($asset->updated_at, 'date');
+            $price = $asset->purchase_cost;
+            if ($price) {
+                $price = '$' . $price;
+            }
+
+            $csv .= $asset->present()->name . ",";
+            $csv .= $asset->asset_tag . ",";
+            $csv .= $asset->serial . ",";
+            $csv .= $price . ",";
+            $csv .= $disposed_date['formatted'] . ",";
+            $csv .= route('hardware.show', ['assetId' => $asset->id]) . "\r\n";
+        }
+        return $csv;
+    }
+
 }
