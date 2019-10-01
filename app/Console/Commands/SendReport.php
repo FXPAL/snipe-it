@@ -8,6 +8,7 @@ use App\Models\Asset;
 use App\Models\Statuslabel;
 use App\Notifications\AssetReportNotification;
 use DateTime;
+use DateInterval;
 
 class SendReport extends Command
 {
@@ -53,7 +54,7 @@ class SendReport extends Command
         $end_date = $this->option('end-date');
         if (!$end_date) {
             $start = new DateTime($start_date);
-            $end_date = $start->format('Y-m-t');
+            $end_date = $start->add(new DateInterval('P1M'))->format('Y-m-d');
         }
         $status = $this->option('status');
 
@@ -70,7 +71,7 @@ class SendReport extends Command
             $assets = Asset::where([
                 ['status_id', '=', $status[0]->id],
                 ['updated_at', '>=', $start_date],
-                ['updated_at', '<=', $end_date],
+                ['updated_at', '<', $end_date],
             ])->get();
 
             foreach ($assets as $asset) {
