@@ -70,7 +70,7 @@ class SendReport extends Command
             $assets = Asset::where([
                 ['status_id', '=', $status[0]->id],
                 ['updated_at', '>=', $start_date],
-                ['updated_at', '<', $end_date],
+                ['updated_at', '<=', $end_date],
             ])->get();
 
             foreach ($assets as $asset) {
